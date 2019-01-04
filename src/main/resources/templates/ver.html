@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+
+
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+
+		<div class="card-panel animated fadeIn">
+
+
+			<div class="row">
+				<div class="col s12">
+					<h3 class="light" th:text="${titulo}"></h3>
+					<div class="divider"></div>
+					<br> <br>
+				</div>
+
+
+				<div th:if="${#strings.length(cliente.foto) > 0}" class="col s4">
+					<img class="materialboxed"
+						th:src="@{'/uploads/' +  ${cliente.foto}}"
+						th:alt="${cliente.foto}" style="max-width: 80%;"
+						th:if="${#strings.length(cliente.foto) > 0}" />
+				</div>
+				<div class="col s8">
+					<h4 th:text="${cliente.nombre}"></h4>
+					<p th:text="${cliente.apellido}"></p>
+					<p th:text="${cliente.email}"></p>
+
+
+
+				</div>
+				<a th:href="@{/factura/form/} + ${cliente.id}" class="btn green"><i
+					class="material-icons cetered white-text">note_add</i></a>
+					
+					<a th:href="@{/form/} + ${cliente.id}" class="btn"><i
+									class="material-icons cetered white-text">edit</i></a>
+
+			</div>
+
+			<div th:if="${#lists.isEmpty(cliente.facturas)}">
+
+				<script type="text/javascript">
+					$(document).ready(function() {
+
+						toastr.options.position = 'toast-top-right';
+						toastr.options.timeOut = 3000;
+						toastr.options.showMethod = 'slideDown';
+						toastr.options.progressBar = true;
+						toastr.info("No hay facturas para el cliente");
+						toastr.options.closeEasing = 'swing';
+
+					});
+				</script>
+
+			</div>
+
+			<div th:if="${not #lists.isEmpty(cliente.facturas)}">
+				<div class="divider"></div>
+				<h3 th:text="Facturas" class="light"></h3>
+				<table class="table striped">
+					<thead>
+						<tr>
+							<th>Folio</th>
+							<th>Descripcion</th>
+							<th>Fecha</th>
+							<th>Total</th>
+							<th>Ver</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="factura: ${cliente.facturas}">
+							<td th:text="${factura.id}"></td>
+							<td th:text="${factura.descripcion}"></td>
+							<td th:text="${factura.createAt}"></td>
+							<td th:text="'$' + ${factura.total}"></td>
+							<td><a th:href="@{/factura/ver/} + ${factura.id}"
+								 class="btn blue"><i class="material-icons white-text">details</i></a></td>
+							<td><a th:href="@{/factura/eliminar/} + ${factura.id}"
+								class="btn red"
+								onclick="return confirm('Estas seguro de querer eliminar factura?')"><i
+									class="material-icons cetered white-text">delete</i></a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

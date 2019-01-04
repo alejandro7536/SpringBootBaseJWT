@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="paginator">
+<div class="divider"></div>
+	<ul class="pagination">
+		<li class="waves-effect">
+		<a th:if="${page.first}" class="disabled">Primera</a>
+		<a th:if="${not page.first}" th:href="@{${page.url}(page=0)}">Primera</a> 
+		</li>
+		
+		
+		<li class="waves-effect">
+		<a th:if="${not page.hasPrevius}" class="disabled"><i class="material-icons">chevron_left</i></a>
+		<a th:if="${page.hasPrevius}" th:href="@{${page.url}(page=${page.paginaActual - 2})}"><i class="material-icons">chevron_left</i></a> 	
+		</li>
+		
+		<li th:each="item : ${page.paginas}" class="waves-effect" th:class="${item.actual}? 'active black'">
+		<a th:if="${item.actual}" th:text="${item.numero}" class="disabled"></a>
+		<a th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero - 1})}" th:text="${item.numero}"></a>
+		</li>
+		
+		
+		<li class="waves-effect">
+		<a th:if="${not page.hasNext}" class="disabled"><i class="material-icons">chevron_right</i></a>
+		<a th:if="${page.hasNext}" th:href="@{${page.url}(page=${page.paginaActual})}"><i class="material-icons">chevron_right</i></a> 
+		</li>
+		
+		<li class="waves-effect">
+		<a th:if="${page.last}" class="disabled">Ultima</a>
+		<a th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas - 1})}">Ultima</a> 
+		</li>
+	
+	
+	</ul>
+</div>
+
+</body>
+</html>

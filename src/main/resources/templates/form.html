@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div class="card animated fadeIn">
+			<div class="card-content">
+
+				<h3 class="light" th:text="${titulo}"></h3>
+				<form th:action="@{/form}" th:object="${cliente}" method="post"
+					enctype="multipart/form-data">
+					<!--th:action="@{/form}" direcccion del metodo save  -->
+
+					<div class="row">
+						<div class="input-field col s6">
+							<label>Nombre</label> <input type="text" th:field="*{nombre}" />
+							<small id="nombre" th:if="${#fields.hasErrors('nombre')}"
+								th:errors="*{nombre}" class="red-text"></small>
+						</div>
+
+						<div th:if="${#fields.hasErrors('nombre')}">
+							<script type="text/javascript">
+								$(document).ready(function() {
+									toastr.options.timeOut = 3000;
+									toastr.error("Nombre invalido");
+								});
+							</script>
+						</div>
+
+						<div class="input-field col s6">
+							<label>Apellidos</label> <input type="text"
+								th:field="*{apellido}" /> <small id="apellido"
+								th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"
+								class="red-text"></small>
+						</div>
+
+						<div th:if="${#fields.hasErrors('apellido')}">
+							<script type="text/javascript">
+								$(document).ready(function() {
+									toastr.options.timeOut = 3000;
+									toastr.error("Apellido invalido");
+								});
+							</script>
+						</div>
+
+						<div class="input-field col s6">
+							<label>Email</label> <input th:field="*{email}" type="email" />
+							<small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="red-text"></small>
+
+						</div>
+						<div th:if="${#fields.hasErrors('email')}">
+							<script type="text/javascript">
+								$(document).ready(function() {
+									toastr.options.timeOut = 3000;
+									toastr.error("Email invalido");
+								});
+							</script>
+						</div>
+
+						<div class="input-field col s6">
+							<label for="fecha">Fecha</label> <input id="fecha" type="text"
+								class="datepicker" th:field="*{createAt}" /> <small
+								th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"
+								class="red-text"></small>
+
+						</div>
+						<div th:if="${#fields.hasErrors('createAt')}">
+							<script type="text/javascript">
+								$(document).ready(function() {
+									toastr.options.timeOut = 3000;
+									toastr.error("Fecha invalida");
+								});
+							</script>
+						</div>
+						
+						</div>
+						
+						<div class="row">
+						<div class="col s6 m6">
+						<div class="file-field input-field">
+						
+							<div class="">
+								<span><i class="material-icons">add_a_photo</i></span> <input type="file" name="file">
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text" name="file">
+							</div>
+						</div>
+						</div>
+						</div>
+						
+
+						<input type="submit" value="Guardar " class="btn pulse" />
+						<!-- los atributos se acceden mediante asterisco -->
+				</form>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<footer th:replace="layout/layout :: footer"></footer>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.datepicker').datepicker();
+		});
+	
+	</script>
+
+</body>
+
+</html>
