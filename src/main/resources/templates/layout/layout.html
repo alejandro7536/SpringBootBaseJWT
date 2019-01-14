@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/sxtras/spring-security">
 <head th:fragment="head">
 <meta charset="UTF-8" />
 <title th:text="'Spring boot aplication ' + ${titulo}">Insert
@@ -26,9 +26,6 @@
 <script th:src="@{/js/jquery-ui.min.js}"></script>
 
 
-
-
-
 </head>
 <body>
 	<header th:fragment="header">
@@ -36,6 +33,23 @@
 			<div class="nav-wrapper #000000 black">
 				<a th:href="@{/listar}" class="brand-logo" style="margin-left: 5px">Clientes</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					
+					<li  sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Sing In</a></li>
+					
+					<li  sec:authorize="isAuthenticated()">
+						<a class="dropdown-trigger btn grey" href="#" data-target='dropdown1'><samp sec:authentication="name"></samp> </a>
+						<div id="dropdown1"class="dropdown-content">
+						<form th:action="@{/logout}" method="post" id="logoutForm">
+							<button  class="btn" onclick="document.getElementById('logoutForm').submit();" type="submit">Salir</button>
+						
+						
+						</form>
+						
+							
+						</div>
+					
+					</li>
+					
 					<li><a th:href="@{/form}">Crear</a></li>
 					<li><a th:href="@{/listar}">Listar</a></li>
 				</ul>
@@ -139,15 +153,24 @@
 				$('.materialboxed').materialbox();
 			});
 		</script>
+		<script type="text/javascript">
+		
+			document.addEventListener('DOMContentLoaded', function(){
+				var elems = document.querySelectorAll('.dropdown-trigger');
+				var instances = M.Dropdown.init(elems, options);
+			});
+
+		</script>
 
 	</header>
 	<footer th:fragment="footer" class="page-footer #000000 black animated ">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
-					<h5 class="white-text">Footer Content</h5>
-					<p class="grey-text text-lighten-4">You can use rows and
-						columns here to organize your footer content.</p>
+					<h5 class="white-text">Facturación App</h5>
+					<p class="grey-text text-lighten-4" sec:authorize="isAuthenticated()">Usuario logueado: <samp sec:authentication="name"></samp></p>
+					<p class="grey-text text-lighten-4" sec:authorize="isAuthenticated()">Roles: <samp sec:authentication="principal.authorities"></samp></p>
+				
 				</div>
 				<div class="col l4 offset-l2 s12">
 					<h5 class="white-text">Links</h5>
