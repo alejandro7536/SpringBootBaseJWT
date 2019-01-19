@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
 </head>
 <body>
@@ -13,37 +13,34 @@
 
 				<spam class="card-title light" th:text="${titulo}"></spam>
 
-
-
-
 				<table class="table striped">
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Email</th>
-							<th>Fecha</th>
-							<th>Factura</th>
-							<th>Editar</th>
-							<th>Eliminar</th>
+							<th sec:authorize="hasRole('ROLE_USER')">Id</th>
+							<th th:text="#{text.cliente.nombre}">Nombre</th>
+							<th th:text="#{text.cliente.apellido}">Apellido</th>
+							<th th:text="#{text.cliente.email}">Email</th>
+							<th th:text="#{text.cliente.createAt}">Fecha</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Factura</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
 						</tr>
 					</thead>
 
  
 					<tbody>
 						<tr th:each="cliente: ${clientes}">
-							<td><a th:href="@{/ver/} + ${cliente.id}"
+							<td sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/ver/} + ${cliente.id}"
 								 class="btn blue"><i class="material-icons white-text">details</i></a></td>
 							<td th:text="${cliente.nombre}"></td>
 							<td th:text="${cliente.apellido}"></td>
 							<td th:text="${cliente.email}"></td>
 							<td th:text="${cliente.createAt}"></td>
-							<td><a th:href="@{/factura/form/} + ${cliente.id}"
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/factura/form/} + ${cliente.id}"
 								class="btn green"><i class="material-icons cetered white-text">note_add</i></a></td>
-							<td><a th:href="@{/form/} + ${cliente.id}" class="btn"><i
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/form/} + ${cliente.id}" class="btn"><i
 									class="material-icons cetered white-text">edit</i></a></td>
-							<td><a th:href="@{/eliminar/} + ${cliente.id}"
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar/} + ${cliente.id}"
 								class="btn red"
 								onclick="return confirm('Estas seguro de querer elminar?')"><i
 									class="material-icons cetered white-text">delete</i></a></td>

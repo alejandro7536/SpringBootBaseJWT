@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
 
 
@@ -36,10 +36,10 @@
 
 
 				</div>
-				<a th:href="@{/factura/form/} + ${cliente.id}" class="btn green"><i
+				<a th:href="@{/factura/form/} + ${cliente.id}" class="btn green" sec:authorize="hasRole('ROLE_ADMIN')"><i
 					class="material-icons cetered white-text">note_add</i></a>
 					
-					<a th:href="@{/form/} + ${cliente.id}" class="btn"><i
+					<a th:href="@{/form/} + ${cliente.id}" class="btn" sec:authorize="hasRole('ROLE_ADMIN')"><i
 									class="material-icons cetered white-text">edit</i></a>
 
 			</div>

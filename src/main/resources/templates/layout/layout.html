@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/sxtras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/sxtras/spring-security">
 <head th:fragment="head">
 <meta charset="UTF-8" />
 <title th:text="'Spring boot aplication ' + ${titulo}">Insert
@@ -33,25 +34,35 @@
 			<div class="nav-wrapper #000000 black">
 				<a th:href="@{/listar}" class="brand-logo" style="margin-left: 5px">Clientes</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					
-					<li  sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Sing In</a></li>
-					
-					<li  sec:authorize="isAuthenticated()">
-						<a class="dropdown-trigger btn grey" href="#" data-target='dropdown1'><samp sec:authentication="name"></samp> </a>
-						<div id="dropdown1"class="dropdown-content">
-						<form th:action="@{/logout}" method="post" id="logoutForm">
-							<button  class="btn" onclick="document.getElementById('logoutForm').submit();" type="submit">Salir</button>
-						
-						
-						</form>
-						
-							
-						</div>
-					
-					</li>
-					
+
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Sing
+							In</a></li>
+
+					<li sec:authorize="isAuthenticated()"><a
+						class="dropdown-trigger btn grey" href="#" data-target='dropdown1'><span
+								sec:authentication="name"></span></a>
+								
+						<div id="dropdown1" class="dropdown-content">
+							<form th:action="@{/logout}" method="post" id="logoutForm">
+								<a onclick="document.getElementById('logoutForm').submit();" class="black-text"
+									type="submit">Salir</a>
+							</form>
+
+						</div></li>
+
 					<li><a th:href="@{/form}">Crear</a></li>
 					<li><a th:href="@{/listar}">Listar</a></li>
+
+
+					<a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Lenguaje</a>
+
+					<!-- Dropdown Structure -->
+					<ul id='dropdown2' class='dropdown-content'>
+						<li><a class="" th:href="@{/locale(lang=es_ES)}">ES</a></li>
+						<li><a class="" th:href="@{/locale(lang=en_US)}">EN</a></li>
+						<li><a class="" th:href="@{/locale(lang=de_DE)}">DE</a></li>
+						
+					</ul>
 				</ul>
 			</div>
 		</nav>
@@ -148,29 +159,36 @@
 		</div>
 
 		<script type="text/javascript">
-		 	M.AutoInit();
+			M.AutoInit();
 			$(document).ready(function() {
 				$('.materialboxed').materialbox();
 			});
 		</script>
 		<script type="text/javascript">
-		
-			document.addEventListener('DOMContentLoaded', function(){
+			document.addEventListener('DOMContentLoaded', function() {
 				var elems = document.querySelectorAll('.dropdown-trigger');
 				var instances = M.Dropdown.init(elems, options);
 			});
-
 		</script>
 
 	</header>
-	<footer th:fragment="footer" class="page-footer #000000 black animated ">
+	<footer th:fragment="footer"
+		class="page-footer #000000 black animated ">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
 					<h5 class="white-text">Facturación App</h5>
-					<p class="grey-text text-lighten-4" sec:authorize="isAuthenticated()">Usuario logueado: <samp sec:authentication="name"></samp></p>
-					<p class="grey-text text-lighten-4" sec:authorize="isAuthenticated()">Roles: <samp sec:authentication="principal.authorities"></samp></p>
-				
+					<p class="grey-text text-lighten-4"
+						sec:authorize="isAuthenticated()">
+						Usuario logueado:
+						<samp sec:authentication="name"></samp>
+					</p>
+					<p class="grey-text text-lighten-4"
+						sec:authorize="isAuthenticated()">
+						Roles:
+						<samp sec:authentication="principal.authorities"></samp>
+					</p>
+
 				</div>
 				<div class="col l4 offset-l2 s12">
 					<h5 class="white-text">Links</h5>

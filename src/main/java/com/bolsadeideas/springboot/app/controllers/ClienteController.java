@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,6 +53,9 @@ public class ClienteController {
 	@Autowired
 	private IUploadFileService uploadFileService;
 
+	@Autowired
+	private MessageSource messageSource;// recurso para mensaje
+
 	@Secured("ROLE_USER")
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
@@ -68,7 +73,7 @@ public class ClienteController {
 				.body(recurso);
 	}
 
-	@PreAuthorize("hasRole('ROLE_USER')")//preautorise utiliza el metodo hasRole creado abajo
+	@PreAuthorize("hasRole('ROLE_USER')") // preautorise utiliza el metodo hasRole creado abajo
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
@@ -82,15 +87,17 @@ public class ClienteController {
 		model.put("titulo", cliente.getNombre());
 
 		return "ver";
-
+	
+		
 	}
 
 	@RequestMapping(value = { "/listar", "/" }, method = RequestMethod.GET) // {"/listar", "/"} arreglo que contiene dos
 																			// rutas la pleca significa que es la pgina
 																			// de inicio
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
-			Authentication authentication, HttpServletRequest request) {// Authentication authentication para acceder a
-																		// los datos del autenticado
+			Authentication authentication, HttpServletRequest request, Locale locale) {// Authentication authentication
+																						// para acceder a
+																						// los datos del autenticado
 
 		if (authentication != null) {
 
@@ -108,7 +115,7 @@ public class ClienteController {
 
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
 
-		model.addAttribute("titulo", "Listado de clientes");
+		model.addAttribute("titulo", messageSource.getMessage("text.cliente.listar.titulo", null, locale));
 		model.addAttribute("clientes", clientes);
 		model.addAttribute("page", pageRender);
 		return "listar";
@@ -117,7 +124,7 @@ public class ClienteController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/form")
 	public String crear(Map<String, Object> model) {
-		
+
 		Date now = new Date();
 		Cliente cliente = new Cliente();
 		model.put("cliente", cliente); // Pasa el obejto cliente que se ha creado

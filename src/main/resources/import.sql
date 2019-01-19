@@ -13,7 +13,7 @@ INSERT INTO productos (id, nombre, precio, create_at) VALUES(3, 'Sony TV', 600, 
 INSERT INTO productos (id, nombre, precio, create_at) VALUES(4, 'Sony Watch',350, NOW());
 
 INSERT INTO users (id, username, password, enabled) VALUES (1, 'andres', '$2a$10$tcA4vDyKeDEzIp67t9w/X.3Q.myRKqRFyhxSNc76WvZPxBiwPo5V6', 1);
-INSERT INTO users (id, username, password, enabled) VALUES (2, 'admin', '$10$p/B0R8bV2QM1exAg5FI5/unuSzCALxQv4sQ75PrEnVrkA0iYrDQgG',1);
+INSERT INTO users (id, username, password, enabled) VALUES (2, 'admin', '$2a$10$tcA4vDyKeDEzIp67t9w/X.3Q.myRKqRFyhxSNc76WvZPxBiwPo5V6',1);
 
 INSERT INTO `authorities` (id, user_id, authority) VALUES (1, 1, 'ROLE_USER');
 INSERT INTO `authorities` (id, user_id, authority) VALUES (2, 2, 'ROLE_USER');

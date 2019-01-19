@@ -1,6 +1,5 @@
 package com.bolsadeideas.springboot.app;
 
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,9 +21,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	private LoginSuccessHandler successHandler; 
 	
 	@Autowired
-	private DataSource dataSource;
-	
-	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -32,7 +28,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/font/**", "/images/**", "/listar").permitAll()
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/font/**", "/images/**", "/listar**", "/locale", "/api/clientes/**").permitAll()
 //				.antMatchers("/ver/**").hasAnyRole("USER").antMatchers("/uploads/**").hasAnyRole("USER")
 //				.antMatchers("/form/**").hasAnyRole("ADMIN").antMatchers("/eliminar/**").hasAnyRole("ADMIN")
 //				.antMatchers("/factura/**").hasAnyRole("ADMIN")
