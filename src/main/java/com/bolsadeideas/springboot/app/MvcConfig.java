@@ -17,19 +17,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer{
 	
-//	private final Logger log = LoggerFactory.getLogger(getClass());
-
-//	@Override
-//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		// TODO Auto-generated method stub
-//		WebMvcConfigurer.super.addResourceHandlers(registry);
-//		
-//		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
-//		log.info(resourcePath);
-//		registry.addResourceHandler("/uploads/**")//Registro de un directorio externo para guardar imagenes
-//		.addResourceLocations(resourcePath);//Direccion del directorio externo
-//		
-//	}
 	
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/error_403").setViewName("error_403");//cambia a la vista del controlador
