@@ -12,12 +12,12 @@ INSERT INTO productos (id, nombre, precio, create_at) VALUES(2, 'Sony camera', 9
 INSERT INTO productos (id, nombre, precio, create_at) VALUES(3, 'Sony TV', 600, NOW());
 INSERT INTO productos (id, nombre, precio, create_at) VALUES(4, 'Sony Watch',350, NOW());
 
-INSERT INTO usuario(id, username, password, enabled) VALUES (1, 'andres', '$2a$10$tcA4vDyKeDEzIp67t9w/X.3Q.myRKqRFyhxSNc76WvZPxBiwPo5V6', 1);
-INSERT INTO usuario(id, username, password, enabled) VALUES (2, 'admin', '$2a$10$tcA4vDyKeDEzIp67t9w/X.3Q.myRKqRFyhxSNc76WvZPxBiwPo5V6',1);
+INSERT INTO usuario(id, username, password, enabled) VALUES (1, 'andres', '$2a$10$tcA4vDyKeDEzIp67t9w/X.3Q.myRKqRFyhxSNc76WvZPxBiwPo5V6', true);
+INSERT INTO usuario(id, username, password, enabled) VALUES (2, 'admin', '$2a$10$tcA4vDyKeDEzIp67t9w/X.3Q.myRKqRFyhxSNc76WvZPxBiwPo5V6', true);
 
-INSERT INTO `rol` (id, user_id, authority, rol_descripcion, rol_estado) VALUES (1, 1, 'ROLE_USER', '  ', true);
-INSERT INTO `rol` (id, user_id, authority, rol_descripcion, rol_estado) VALUES (2, 2, 'ROLE_USER', '  ', true);
-INSERT INTO `rol` (id, user_id, authority, rol_descripcion, rol_estado) VALUES (3, 2, 'ROLE_ADMIN', '  ', true);
+INSERT INTO rol (id, user_id, authority, rol_descripcion, rol_estado) VALUES (1, 1, 'ROLE_USER', '  ', true);
+INSERT INTO rol (id, user_id, authority, rol_descripcion, rol_estado) VALUES (2, 2, 'ROLE_USER', '  ', true);
+INSERT INTO rol (id, user_id, authority, rol_descripcion, rol_estado) VALUES (3, 2, 'ROLE_ADMIN', '  ', true);
 
 
 INSERT INTO menu (menu_id, menu_nombre, menu_url, menu_icono, menu_configurable, menu_es_asignable) VALUES (1, 'inicio', 'http://localhost:8080/inicio', 'icon ', true, true);
