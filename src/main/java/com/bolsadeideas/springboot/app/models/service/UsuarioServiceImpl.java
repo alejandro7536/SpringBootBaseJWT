@@ -9,26 +9,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.app.models.dao.IUsuarioDao;
-import com.bolsadeideas.springboot.app.models.entety.Menu;
-import com.bolsadeideas.springboot.app.models.entety.Role;
-import com.bolsadeideas.springboot.app.models.entety.Usuario;
+import com.bolsadeideas.springboot.app.models.entity.Menu;
+import com.bolsadeideas.springboot.app.models.entity.Role;
+import com.bolsadeideas.springboot.app.models.entity.Usuario;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private IUsuarioDao usuarioDao;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
-	@Override
-	public List<Role> getRoles(Long id) {
 
-		Usuario user = usuarioDao.findById(id).orElse(null);
-		List<Role> roles = new ArrayList<>();
 
-		roles = user.getRoles();
-
-		return roles;
-	}
 
 	@Override
 	public Usuario findOne(Long id) {
@@ -40,26 +36,36 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Transactional
 	public List<Menu> menus(String username) {
 
-		List<Role> roles = new ArrayList<>();
-		List<Menu> menu = new ArrayList<>();
-		List<Menu> menuAux = new ArrayList<>();
+		List<Menu> menu;
 		
 		Usuario user = usuarioDao.findByUsername(username);
 
-		roles = this.getRoles(user.getId());
+		Role rol = this.getRole(user.getId());
 
-		for (int i = 0; i < roles.size(); i++) {
-			menuAux = roles.get(i).getMenus();
-			
-			if(menuAux != null) {
-				for (int j = 0; j < menuAux.size(); j++) {
-					menu.add(menuAux.get(j));
-				}
-			}
-		}
+		menu = rol.getMenus();
 
 		return menu;
 		
+	}
+
+	@Override
+	@Transactional
+	public void saveCliente(Usuario usuario) {
+		
+		String password = usuario.getPassword();
+		String bcryptPassword = passwordEncoder.encode(password);
+		
+		usuario.setPassword(bcryptPassword);
+		
+		usuarioDao.save(usuario);
+		
+	}
+
+	@Override
+	public Role getRole(Long id) {
+		Usuario user = usuarioDao.findById(id).orElse(null);
+		
+		return user.getRol();
 	}
 
 }

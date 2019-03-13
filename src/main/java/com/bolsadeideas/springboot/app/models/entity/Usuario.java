@@ -1,7 +1,6 @@
-package com.bolsadeideas.springboot.app.models.entety;
+package com.bolsadeideas.springboot.app.models.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,8 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +17,7 @@ import javax.persistence.Table;
 public class Usuario implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(length = 30, unique = true)
@@ -30,9 +28,8 @@ public class Usuario implements Serializable {
 
 	private boolean enabled;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
-	private List<Role> roles;
+	@OneToOne
+	private Role rol;
 
 	public Long getId() {
 		return id;
@@ -66,13 +63,15 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
+	public Role getRol() {
+		return rol;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRol(Role rol) {
+		this.rol = rol;
 	}
+
+
 
 	/**
 	 * 

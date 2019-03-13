@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.bolsadeideas.springboot.app.auth.service.JWTService;
-import com.bolsadeideas.springboot.app.models.entety.Menu;
+import com.bolsadeideas.springboot.app.models.entity.Menu;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 

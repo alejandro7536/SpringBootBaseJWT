@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import com.bolsadeideas.springboot.app.models.entety.Menu;
+import com.bolsadeideas.springboot.app.models.entity.Menu;
 
 import io.jsonwebtoken.Claims;
 

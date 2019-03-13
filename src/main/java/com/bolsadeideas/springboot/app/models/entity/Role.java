@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.app.models.entety;
+package com.bolsadeideas.springboot.app.models.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,14 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "rol", uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "Authority"})})//uniqueConstraints agregar constraints a la tabla
+@Table(name = "rol")
 public class Role implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String authority;
@@ -30,7 +29,7 @@ public class Role implements Serializable {
 	
 	private boolean rol_estado;
 	
-	@ManyToMany(fetch= FetchType.LAZY
+	@ManyToMany(fetch= FetchType.EAGER
 			, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="asignacion_rol_menu",
 				joinColumns= {@JoinColumn(name="rol_id")},

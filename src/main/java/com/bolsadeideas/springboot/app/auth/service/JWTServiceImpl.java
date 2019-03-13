@@ -14,9 +14,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.app.auth.SimpleGrantedAuthoritiesMixin;
-import com.bolsadeideas.springboot.app.models.entety.Menu;
+import com.bolsadeideas.springboot.app.models.entity.Menu;
 import com.bolsadeideas.springboot.app.models.service.IUsuarioService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -109,6 +110,7 @@ public class JWTServiceImpl implements JWTService{
 	}
 
 	@Override
+	@Transactional
 	public List<Menu> getMenu(String username) {
 		return usuarioService.menus(username);
 	}
